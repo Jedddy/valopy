@@ -41,7 +41,7 @@ class Media:
         return None
 
     def to_bytes(self) -> bytes | None:
-        """Returns the bytes of a media"""
+        """Returns the bytes of this media object."""
 
         if self.url:
             resp = requests.get(self.url)
@@ -51,6 +51,8 @@ class Media:
 
 
 class MediaVoice(Media):
+    """Represents a voice line media"""
+
     id: int
     wwise: Media
     wave: Media
@@ -63,6 +65,7 @@ class MediaVoice(Media):
 
 class VoiceLine:
     """Represents a valorant agent voice line."""
+
     min_duration: float
     max_duration: float
     media_list: list[MediaVoice]
