@@ -3,6 +3,16 @@ from .types.role import RolePayload
 
 
 class Role:
+    """Represents a valorant agent role."""
+
+    __slots__ = (
+        "uuid",
+        "name",
+        "description",
+        "display_icon",
+        "asset_path",
+    )
+
     uuid: str
     name: str
     description: str
