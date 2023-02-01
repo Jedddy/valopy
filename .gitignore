@@ -1,0 +1,6 @@
+# Venv
+.Venv
+
+# Cache
+__pycache__
+.pyc
