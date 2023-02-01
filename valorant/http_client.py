@@ -30,6 +30,6 @@ class HTTPClient:
         data = requests.get(url, params=params)
 
         if data.json()["status"] == 404:
-            raise NotFound(data)
+            raise NotFound(data.json()["error"])
 
         return data.json()["data"]
