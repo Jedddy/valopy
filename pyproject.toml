@@ -1,10 +1,7 @@
 [tool.poetry]
 name = "valopy"
-version = "0.1.0"
-description = ""
-authors = ["Jedddy <jedbalita25@gmail.com>"]
 readme = "README.md"
-packages = [{include = "async_valorant"}]
+packages = [{include = "valorant"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
