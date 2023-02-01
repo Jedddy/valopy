@@ -35,6 +35,12 @@ class BuddyLevel(BaseBuddy):
         self.asset_path: str = data["assetPath"]
         self.charm_level: int = data["charmLevel"]
 
+    def __str__(self) -> str:
+        return self.name
+
+    def __repr__(self) -> str:
+        return f"<BuddyLevel {self.name}>"
+
 
 class Buddy(BaseBuddy):
     """Represents a gun buddy."""
@@ -68,3 +74,9 @@ class Buddy(BaseBuddy):
     def _update_levels(self, data: BuddyPayload):
         for level in data["levels"]:
             self.levels.append(BuddyLevel(level))
+
+    def __str__(self) -> str:
+        return self.name
+
+    def __repr__(self) -> str:
+        return f"<Buddy {self.name}>"
