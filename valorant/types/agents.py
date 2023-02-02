@@ -10,7 +10,7 @@ class AgentPayload(TypedDict):
     displayName: str
     description: str
     developerName: str
-    characterTags: list[str]  # i have no idea how to parse this, some results return `None`
+    characterTags: list[str]
     isPlayableCharacter: bool
     isBaseContent: bool
     isAvailableForTest: bool

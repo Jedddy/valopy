@@ -35,7 +35,7 @@ class Agent:
     name: str
     description: str
     dev_name: str
-    tags: list[str]  # i have no idea how to parse this, some results return `None`
+    tags: list[str]  # some results return `None`
     display_icon: Media
     display_icon_small: Media
     bust_portrait: Media
