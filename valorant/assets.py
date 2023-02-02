@@ -27,9 +27,10 @@ class Media:
         If the only the filename and extension is supplied,
         save to the root dir of the project.
 
-        Parameters:
-            path: Union[:class:`str`, :class`os.PathLike`]
-                The path to save the media file to.
+        Parameters
+        ----------
+        path: Union[:class:`str`, :class`os.PathLike`]
+            The path to save the media file to.
         """
 
         if self.url:
