@@ -2,6 +2,7 @@ from typing import Generator
 
 from .agents import Agent
 from .buddies import Buddy, BuddyLevel
+from .bundles import Bundle
 from .http_client import HTTPClient, Route
 from .langs import Language
 
@@ -53,7 +54,7 @@ class ValClient:
         Raises
         ----------
         NotFound:
-            If the agent is not found.
+            If the UUID provided does not match an agent.
         """
 
         data = self._http_client.request(
@@ -86,10 +87,15 @@ class ValClient:
         uuid: :class:`str`
             The UUID of the buddy to search for.
 
+        Returns
+        ----------
+        :class:`valorant.Buddy`
+            A valorant gun buddy.
+
         Raises
         ----------
         NotFound:
-            If the gun buddy is not found.
+           If the UUID provided does not match a gun buddy.
         """
 
         data = self._http_client.request(
@@ -103,8 +109,9 @@ class ValClient:
 
         Yields
         ----------
-        :class:`valorant.BuddyLevels`
-            A valorant gun buddy levels."""
+        :class:`valorant.BuddyLevel`
+            A valorant gun buddy level.
+        """
 
         data = self._http_client.request(
             Route("/buddies/levels")
@@ -121,10 +128,15 @@ class ValClient:
         uuid: :class:`str`
             The UUID of the buddy level to search for.
 
+        Returns
+        ----------
+        :class:`valorant.Buddy`
+            A valorant gun buddy.
+
         Raises
         ----------
         NotFound:
-            If the gun buddy level is not found.
+           If the UUID provided does not match a buddy level.
         """
 
         data = self._http_client.request(
@@ -132,3 +144,44 @@ class ValClient:
         )
 
         return BuddyLevel(data)
+
+    def fetch_bundles(self) -> Generator[Bundle, None, None]:
+        """Fetches valorant bundles.
+
+        Yields
+        ----------
+        :class:`valorant.Bundle`
+            A valorant bundle.
+        """
+
+        data = self._http_client.request(
+            Route("/bundles")
+        )
+
+        for bundle in data:
+            yield Bundle(bundle)
+
+    def fetch_bundle(self, uuid: str, /) -> Bundle:
+        """Fetches a valorant bundle.
+
+        Parameters
+        ----------
+        uuid: :class:`str`
+            The UUID of the bundle to search for.
+
+        Returns
+        ----------
+        :class:`valorant.Bundle`
+            A valorant bundle.
+
+        Raises
+        ----------
+        NotFound:
+            If the UUID provided does not match a bundle.
+        """
+
+        data = self._http_client.request(
+            Route(f"/bundles/{uuid}")
+        )
+
+        return Bundle(data)
