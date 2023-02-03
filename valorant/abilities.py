@@ -1,9 +1,23 @@
+"""Abilities"""
+
 from .assets import Media
 from .types.ability import AbilityPayload
 
 
 class Ability:
-    """This represents a valorant agent ability."""
+    """This represents a valorant agent ability.
+
+    Attributes
+    ----------
+    slot: :class:`str`
+        The slot of the ability.
+    name: :class:`str`
+        The name of the ability.
+    description: :class:`str`
+        The description of the ability.
+    display_icon: :class:`valorant.Media`
+        A media object of the display icon.
+    """
 
     __slots__ = (
         "slot",
@@ -13,7 +27,7 @@ class Ability:
     )
 
     slot: str
-    displayame: str
+    name: str
     description: str
     display_icon: Media
 
