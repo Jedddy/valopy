@@ -2,6 +2,7 @@ from typing import Generator
 
 from .agents import Agent
 from .buddies import Buddy, BuddyLevel
+from .ceremonies import Ceremony
 from .bundles import Bundle
 from .http_client import HTTPClient, Route
 from .langs import Language
@@ -12,7 +13,7 @@ class ValClient:
 
     Parameters
     ----------
-    lang: :class:`valorant.Language`
+    lang: Optional[:class:`valorant.Language`]
         The language to use for data fetching.
     """
 
@@ -185,3 +186,43 @@ class ValClient:
         )
 
         return Bundle(data)
+
+    def fetch_ceremonies(self) -> list[Ceremony]:
+        """Fetches valorant kill ceremonies.
+
+        Returns
+        ----------
+        List[:class:`valorant.Ceremony`]
+            A valorant kill ceremony.
+        """
+
+        data = self._http_client.request(
+            Route("/ceremonies")
+        )
+
+        return [Ceremony(ceremony) for ceremony in data]
+
+    def fetch_ceremony(self, uuid: str, /) -> Ceremony:
+        """Fetches a valorant kill ceremony.
+
+        Parameters
+        ----------
+        uuid: :class:`str`
+            The UUID of the ceremony to search for.
+
+        Returns
+        ----------
+        :class:`valorant.Ceremony`
+            A valorant kill ceremony.
+
+        Raises
+        ----------
+        NotFound:
+            If the UUID provided does not match a ceremony
+        """
+
+        data = self._http_client.request(
+            Route(f"/ceremonies/{uuid}")
+        )
+
+        return Ceremony(data) 
