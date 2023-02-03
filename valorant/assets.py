@@ -12,7 +12,13 @@ from .types.assets import (
 
 
 class Media:
-    """Represents an Media for the assets."""
+    """Represents a Media for the assets.
+
+    Attributes
+    ----------
+    url: :class:`str`
+        The media's url.
+    """
 
     __slots__ = ("url",)
 
@@ -51,8 +57,18 @@ class Media:
         return None
 
 
-class MediaVoice(Media):
-    """Represents a voice line media"""
+class MediaVoice:
+    """Represents a voice line media
+
+    Attributes
+    ----------
+    id: :class:`int`
+        The voice line's id.
+    wwise: :class:`valorant.Media`
+        The wwise version of the voice line.
+    wave: :class:`valorant.Media`
+        The wave version of the voice line.
+    """
 
     id: int
     wwise: Media
@@ -65,7 +81,17 @@ class MediaVoice(Media):
 
 
 class VoiceLine:
-    """Represents a valorant agent voice line."""
+    """Represents a valorant agent voice line.
+
+    Attributes
+    ----------
+    min_duration: :class:`float`
+        The minimum duration of the voice line.
+    max_duration: :class`float`
+        The max duration of the voice line.
+    media_list: List[:class:`Media`]
+        A list of the voice line's media.
+    """
 
     min_duration: float
     max_duration: float
@@ -74,7 +100,7 @@ class VoiceLine:
     def __init__(self, data: VoiceLinePayload) -> None:
         self.min_duration: float = data["minDuration"]
         self.max_duration: float = data["maxDuration"]
-        self.media_list: list = []  # Place holder
+        self.media_list: list[MediaVoice] = []  # Place holder
         self._update_media(data["mediaList"])
 
     def _update_media(self, data: list[MediaVoicePayload]) -> None:

@@ -1,3 +1,5 @@
+"""Agents"""
+
 from .abilities import Ability
 from .assets import Media, VoiceLine
 from .role import Role
@@ -5,7 +7,53 @@ from .types.agents import AgentPayload
 
 
 class Agent:
-    """Represents a valorant agent."""
+    """Represents a valorant agent.
+
+    Attributes
+    ----------
+    uuid: :class:`str`
+        The UUID of the agent.
+    name: :class:`str`
+        The name of the agent.
+    description: :class:`str`
+        The description about the agent.
+    dev_name: :class:`str`
+        The agent's developer name.
+    tags: List[:class:`str`]
+        The agent's tags.
+    is_playable: :class:`bool`
+        Indicates if the agent is playable.
+    is_base_content: :class:`bool`
+        Indicates if the agent is base content.
+    is_available_for_test: :class:`bool`
+        Indicates if the agent is available for testing.
+    role: :class:`valorant.Role`
+        The agent's role.
+    abilities: :class:`valorant.Ability`
+        The agent's abilities.
+    display_icon: :class:`valorant.Media`
+        The agent's display icon.
+    display_icon_small: :class:`valorant.Media`
+        A small version of the agent's display icon.
+    bust_portrait: :class:`valorant.Media`
+        A bust portrait of the agent.
+    full_portrait: :class:`valorant.Media`
+        A full portrait of the agent.
+    full_portrait_v2: :class:`valorant.Media`
+        A v2 full portrait of the agent.
+    kill_feed_portrait: :class:`valorant.Media`
+        The agent's kill feed portrait
+    background: :class:`valorant.Media`
+        The agent's background image.
+    background_gradient_colors: List[:class:`str`]
+        The agent's background gradient colors.
+    asset_path: :class:`str`
+        The agent's asset path on the API.
+    is_full_portrait_right_facing: :class:`bool`
+        Indicates if the full portrait is right facing.
+    voice_line: :class:`valorant.VoiceLine`
+        The agent's voicelines.
+    """
 
     __slots__ = (
         "uuid",
@@ -73,6 +121,7 @@ class Agent:
         self.asset_path: str = data["assetPath"]
         self.is_full_portrait_right_facing: bool = data["isFullPortraitRightFacing"]
         self.role: Role = Role(data["role"])
+        self.voice_line: VoiceLine = VoiceLine(data["voiceLine"])
         self._update_abilities(data)
 
     def _update_abilities(self, data: AgentPayload) -> None:

@@ -43,7 +43,25 @@ class BuddyLevel(BaseBuddy):
 
 
 class Buddy(BaseBuddy):
-    """Represents a gun buddy."""
+    """Represents a gun buddy.
+
+    Attributes
+    ----------
+    uuid: :class:`str`
+        The gun buddy's UUID.
+    name: :class:`str`
+        The gun buddy's display name.
+    display_icon: :class:`valorant.Media`
+        The display icon.
+    asset_path: :class:`str`
+        The asset path on the API.
+    hidden_if_not_owned: :class:`bool`
+        Indicates if the buddy is hidden if it's not owned.
+    theme_uuid: Optional[:class:`str`]
+        The theme UUID.
+    levels: List[:class:`valorant.BuddyLevel`]
+        A list of the buddy's levels.
+    """
 
     __slots__ = (
         "uuid",
@@ -52,7 +70,6 @@ class Buddy(BaseBuddy):
         "asset_path",
         "hidden_if_not_owned",
         "theme_uuid",
-        "asset_path",
         "levels",
     )
 

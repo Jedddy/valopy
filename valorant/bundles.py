@@ -7,7 +7,33 @@ from .types.bundles import BundlePayload
 
 
 class Bundle:
-    """Represents a valorant bundle."""
+    """Represents a valorant bundle.
+
+    Attributes
+    ----------
+    uuid: :class:`str`
+        The bundle's UUID.
+    name: :class:`str`
+        The bundle's name.
+    name_subtext: Optional[:class:`str`]
+        The name subtext.
+    description: :class:`str`
+        The bundle's description.
+    extra_description: Optional[:class:`str`]
+        The extra description.
+    promo_description: Optional[:class:`str`]
+        The promo description
+    use_additional_context: :class:`bool`
+        Indicates if the bundle uses additional context.
+    display_icon: :class:`valorant.Media`
+        The display icon.
+    display_icon2: :class:`valorant.Media`
+        Another version of the display icon.
+    vertical_promo_image: :class:`valorant.Media`
+        The vertical promo image.
+    asset_path: :class:`str`
+        The asset path on the API.
+    """
 
     __slots__ = (
         "uuid",

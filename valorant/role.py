@@ -3,7 +3,21 @@ from .types.role import RolePayload
 
 
 class Role:
-    """Represents a valorant agent role."""
+    """Represents a valorant agent role.
+
+    Attributes
+    ----------
+    uuid: :class:`str`
+        The role's UUID.
+    name: :class:`str`
+        The role name.
+    description: :class:`str`
+        The role's description
+    display_icon: :class:`valorant.Media`
+        The display icon.
+    asset_path: :class:`str`
+        The asset path on the API.
+    """
 
     __slots__ = (
         "uuid",
