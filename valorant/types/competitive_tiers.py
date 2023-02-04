@@ -8,8 +8,8 @@ class RankTierPayload(TypedDict):
     divisionName: str
     color: str
     backgroundColor: str
-    smallIcon: str
-    largeIcon: str
+    smallIcon: Union[str, None]
+    largeIcon: Union[str, None]
     rankTriangleDownIcon: Union[str, None]
     rankTriangleUpIcon: Union[str, None]
 
