@@ -4,6 +4,7 @@ from .agents import Agent
 from .buddies import Buddy, BuddyLevel
 from .bundles import Bundle
 from .ceremonies import Ceremony
+from .content_tiers import ContentTier
 from .competitive_tiers import Episode
 from .http_client import HTTPClient, Route
 from .langs import Language
@@ -262,3 +263,42 @@ class ValClient:
         )
 
         return Episode(data)
+
+    def fetch_content_tiers(self) -> list[ContentTier]:
+        """Fetches all valorant content tiers.
+
+        Returns
+        ----------
+        List[:class:`valorant.ContentTier`]
+        """
+
+        data = self._http_client.request(
+            Route("/contenttiers")
+        )
+
+        return [ContentTier(tier) for tier in data]
+
+    def fetch_content_tier(self, uuid: str, /) -> ContentTier:
+        """Fetches a valorant content tier.
+
+        Parameters
+        ----------
+        uuid: :class:`str`
+            The UUID of the content tier to search for.
+
+        Returns
+        ----------
+        :class:`valorant.ContentTier`
+            A valorant content tier.
+
+        Raises
+        ----------
+        NotFound:
+            If the UUID provided does not match a content tier.
+        """
+
+        data = self._http_client.request(
+            Route(f"/contenttiers/{uuid}")
+        )
+
+        return ContentTier(data)
