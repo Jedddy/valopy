@@ -122,9 +122,9 @@ class Agent:
         self.is_full_portrait_right_facing: bool = data["isFullPortraitRightFacing"]
         self.role: Role = Role(data["role"])
         self.voice_line: VoiceLine = VoiceLine(data["voiceLine"])
-        self._update_abilities(data)
+        self._update(data)
 
-    def _update_abilities(self, data: AgentPayload) -> None:
+    def _update(self, data: AgentPayload) -> None:
         self.abilities = []
 
         for ability in data["abilities"]:

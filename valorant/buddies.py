@@ -86,9 +86,9 @@ class Buddy(BaseBuddy):
         self.hidden_if_not_owned: bool = data["isHiddenIfNotOwned"]
         self.theme_uuid: Union[str, None] = data["themeUuid"]
         self.levels: list[BuddyLevel] = []
-        self._update_levels(data)
+        self._update(data)
 
-    def _update_levels(self, data: BuddyPayload):
+    def _update(self, data: BuddyPayload):
         for level in data["levels"]:
             self.levels.append(BuddyLevel(level))
 
