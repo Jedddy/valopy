@@ -73,3 +73,9 @@ class Bundle:
         self.display_icon2: Media = Media(data["displayIcon2"])
         self.vertical_promo_image: Media = Media(data["verticalPromoImage"])
         self.asset_path: str = data["assetPath"]
+
+    def __str__(self) -> str:
+        return self.name
+
+    def __repr__(self) -> str:
+        return f"<Bundle {self.name}>"

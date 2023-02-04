@@ -30,3 +30,9 @@ class Ceremony:
         self.uuid: str = data["uuid"]
         self.name: str = data["displayName"]
         self.asset_path: str = data["assetPath"]
+
+    def __str__(self) -> str:
+        return self.name
+
+    def __repr__(self) -> str:
+        return f"<Ceremony {self.name}>"
