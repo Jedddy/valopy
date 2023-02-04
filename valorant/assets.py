@@ -24,8 +24,8 @@ class Media:
 
     url: Union[str, None]
 
-    def __init__(self, url: str) -> None:
-        self.url = url or None
+    def __init__(self, url: Union[str, None]) -> None:
+        self.url = url
 
     def save(self, path: Union[str, os.PathLike]) -> int | None:
         """Saves the media to a file path.
@@ -37,6 +37,11 @@ class Media:
         ----------
         path: Union[:class:`str`, :class`os.PathLike`]
             The path to save the media file to.
+
+        Returns
+        ----------
+        Optional[:class:`int`]
+            The number of characters written.
         """
 
         if self.url:
@@ -101,8 +106,8 @@ class VoiceLine:
         self.min_duration: float = data["minDuration"]
         self.max_duration: float = data["maxDuration"]
         self.media_list: list[MediaVoice] = []  # Place holder
-        self._update_media(data["mediaList"])
+        self._update(data["mediaList"])
 
-    def _update_media(self, data: list[MediaVoicePayload]) -> None:
+    def _update(self, data: list[MediaVoicePayload]) -> None:
         for media in data:
             self.media_list.append(MediaVoice(media))
