@@ -5,6 +5,7 @@ from .buddies import Buddy, BuddyLevel
 from .bundles import Bundle
 from .ceremonies import Ceremony
 from .content_tiers import ContentTier
+from .contracts import Contract
 from .competitive_tiers import Episode
 from .http_client import HTTPClient, Route
 from .langs import Language
@@ -302,3 +303,44 @@ class ValClient:
         )
 
         return ContentTier(data)
+
+    def fetch_contracts(self) -> Generator[Contract, None, None]:
+        """Fetches all valorant contracts.
+
+        Yields
+        ----------
+        :class:`valorant.Contract`
+            A valorant contract.
+        """
+
+        data = self._http_client.request(
+            Route("/contracts")
+        )
+
+        for contract in data:
+            yield Contract(contract)
+
+    def fetch_contract(self, uuid: str, /) -> Contract:
+        """Fetches a valorant contract.
+
+        Parameters
+        ----------
+        uuid: :class:`str`
+            The UUID of the contract to search for.
+
+        Returns
+        ----------
+        :class:`valorant.Contract`
+            A valorant contract.
+
+        Raises
+        ----------
+        NotFound:
+            If the UUID provided does not match a contract.
+        """
+
+        data = self._http_client.request(
+            Route(f"/contracts/{uuid}")
+        )
+
+        return Contract(data)
