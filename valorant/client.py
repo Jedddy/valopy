@@ -2,8 +2,9 @@ from typing import Generator
 
 from .agents import Agent
 from .buddies import Buddy, BuddyLevel
-from .ceremonies import Ceremony
 from .bundles import Bundle
+from .ceremonies import Ceremony
+from .competitive_tiers import Episode
 from .http_client import HTTPClient, Route
 from .langs import Language
 
@@ -28,16 +29,12 @@ class ValClient:
             list[:class:`valopy.Agents`]
         """
 
-        agents = []
         data = self._http_client.request(
             Route("/agents"),
             **{"isPlayableCharacter": True}
         )
 
-        for agent in data:
-            agents.append(Agent(agent))
-
-        return agents
+        return [Agent(agent) for agent in data]
 
     def fetch_agent(self, uuid: str, /) -> Agent:
         """Fetches an agent by their UUID.
@@ -225,4 +222,43 @@ class ValClient:
             Route(f"/ceremonies/{uuid}")
         )
 
-        return Ceremony(data) 
+        return Ceremony(data)
+
+    def fetch_episodes(self) -> list[Episode]:
+        """Fetches all valorant competitive episodes.
+
+        Returns
+        ----------
+        List[:class:`valorant.Episode`]
+        """
+
+        data = self._http_client.request(
+            Route("/competitivetiers")
+        )
+
+        return [Episode(episode) for episode in data]
+
+    def fetch_episode(self, uuid: str, /) -> Episode:
+        """Fetches a valorant episode.
+
+        Parameters
+        ----------
+        uuid: :class:`str`
+            The UUID of the episode to search for.
+
+        Returns
+        ----------
+        :class:`valorant.Episode`
+            A valorant episode.
+
+        Raises
+        ----------
+        NotFound:
+            If the UUID provided does not match an episode.
+        """
+
+        data = self._http_client.request(
+            Route(f"/competitivetiers/{uuid}")
+        )
+
+        return Episode(data)
