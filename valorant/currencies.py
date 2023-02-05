@@ -44,4 +44,4 @@ class Currency:
         return self.name
 
     def __repr__(self) -> str:
-        return f"<Currency {self.name}>"
+        return f"<{self.__class__.__name__} {self.name}>"

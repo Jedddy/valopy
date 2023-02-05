@@ -71,7 +71,7 @@ class RankTier:
         return self.name
 
     def __repr__(self) -> str:
-        return f"<RankTier {self.name}>"
+        return f"<{self.__class__.__name__} {self.name}>"
 
 
 class Episode:
@@ -110,4 +110,4 @@ class Episode:
         return self.asset_object_name
 
     def __repr__(self) -> str:
-        return f"<Episode {self.asset_object_name}>"
+        return f"<{self.__class__.__name__} {self.asset_object_name}>"

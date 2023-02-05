@@ -41,4 +41,4 @@ class Ability:
         return self.name
 
     def __repr__(self) -> str:
-        return f"<Ability {self.name}>"
+        return f"<{self.__class__.__name__} {self.name}>"

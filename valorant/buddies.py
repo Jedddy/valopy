@@ -39,7 +39,7 @@ class BuddyLevel(BaseBuddy):
         return self.name
 
     def __repr__(self) -> str:
-        return f"<BuddyLevel {self.name}>"
+        return f"<{self.__class__.__name__} {self.name}>"
 
 
 class Buddy(BaseBuddy):
@@ -96,4 +96,4 @@ class Buddy(BaseBuddy):
         return self.name
 
     def __repr__(self) -> str:
-        return f"<Buddy {self.name}>"
+        return f"<{self.__class__.__name__} {self.name}>"
