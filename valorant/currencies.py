@@ -39,3 +39,9 @@ class Currency:
         self.display_icon: Media = Media(data["displayIcon"])
         self.large_icon: Media = Media(data["largeIcon"])
         self.asset_path: str = data["assetPath"]
+
+    def __str__(self) -> str:
+        return self.name
+
+    def __repr__(self) -> str:
+        return f"<Currency {self.name}>"
