@@ -90,7 +90,7 @@ class ContractChapter:
     def __init__(self, data: ContractChapterPayload) -> None:
         self.is_epilogue: bool = data["isEpilogue"]
         self.levels: list[ContractLevel] = []
-        self.free_rewards: Union[list[ContractReward], None] = []
+        self.free_rewards: Union[list[ContractReward], None] = None
         self._update(data)
 
     def _update(self, data: ContractChapterPayload) -> None:
@@ -98,6 +98,7 @@ class ContractChapter:
             self.levels.append(ContractLevel(level))
 
         if data["freeRewards"]:
+            self.free_rewards = []
             for reward in data["freeRewards"]:
                 self.free_rewards.append(ContractReward(reward))
 
