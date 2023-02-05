@@ -6,6 +6,7 @@ from .bundles import Bundle
 from .ceremonies import Ceremony
 from .content_tiers import ContentTier
 from .contracts import Contract
+from .currencies import Currency
 from .competitive_tiers import Episode
 from .http_client import HTTPClient, Route
 from .langs import Language
@@ -344,3 +345,44 @@ class ValClient:
         )
 
         return Contract(data)
+
+    def fetch_currencies(self) -> list[Currency]:
+        """Fetches all valorant currencies.
+
+        
+        Returns
+        ----------
+        List[:class:`valorant.Currency`]
+            A valorant courrency.
+        """
+
+        data = self._http_client.request(
+            Route("/currencies")
+        )
+
+        return [Currency(currency) for currency in data]
+
+    def fetch_currency(self, uuid: str, /) -> Currency:
+        """Fetches a valorant currency.
+
+        Parameters
+        ----------
+        uuid: :class:`str`
+            The UUID of the currency to search for.
+
+        Returns
+        ----------
+        :class:`valorant.Currency`
+            A valorant currency.
+
+        Raises
+        ----------
+        NotFound:
+            If the UUID provided does not match a currency.
+        """
+
+        data = self._http_client.request(
+            Route(f"/currencies/{uuid}")
+        )
+
+        return Currency(data)
