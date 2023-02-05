@@ -17,3 +17,11 @@ def test_contract_fade():
     assert contract.content.relation_type == "Agent"
     assert contract.content.premium_vp_cost == -1
     assert contract.name == "Fade Contract"
+
+
+def test_contract_act():
+    contract = client.fetch_contract("7b06d4ce-e09a-48d5-8215-df9901376fa7")
+
+    for reward in contract.content.chapters:
+        assert reward.free_rewards is not None
+        assert isinstance(reward.free_rewards, list)
