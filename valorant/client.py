@@ -8,6 +8,7 @@ from .content_tiers import ContentTier
 from .contracts import Contract
 from .currencies import Currency
 from .competitive_tiers import Episode
+from .events import Event
 from .http_client import HTTPClient, Route
 from .langs import Language
 
@@ -349,7 +350,6 @@ class ValClient:
     def fetch_currencies(self) -> list[Currency]:
         """Fetches all valorant currencies.
 
-        
         Returns
         ----------
         List[:class:`valorant.Currency`]
@@ -386,3 +386,43 @@ class ValClient:
         )
 
         return Currency(data)
+
+    def fetch_events(self) -> list[Event]:
+        """Fetches all valorant events.
+
+        Returns
+        ----------
+        List[:class:`valorant.Event`]
+            A valorant events.
+        """
+
+        data = self._http_client.request(
+            Route("/events")
+        )
+
+        return [Event(event) for event in data]
+
+    def fetch_event(self, uuid: str, /) -> Event:
+        """Fetches a valorant event.
+
+        Parameters
+        ----------
+        uuid: :class:`str`
+            The UUID of the event to search for.
+
+        Returns
+        ----------
+        :class:`valorant.Event`
+            A valorant event.
+
+        Raises
+        ----------
+        NotFound:
+            If the UUID provided does not match a event.
+        """
+
+        data = self._http_client.request(
+            Route(f"/events/{uuid}")
+        )
+
+        return Event(data)
