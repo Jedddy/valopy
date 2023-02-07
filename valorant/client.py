@@ -10,6 +10,7 @@ from .currencies import Currency
 from .competitive_tiers import Episode
 from .events import Event
 from .http_client import HTTPClient, Route
+from .gamemodes import GameMode, GameModeEquippable
 from .langs import Language
 
 
@@ -426,3 +427,83 @@ class ValClient:
         )
 
         return Event(data)
+
+    def fetch_gamemodes(self) -> list[GameMode]:
+        """Fetches all valorant game modes.
+
+        Returns
+        ----------
+        List[:class:`valorant.GameMode`]
+            A valorant game mode.
+        """
+
+        data = self._http_client.request(
+            Route("/gamemodes")
+        )
+
+        return [GameMode(mode) for mode in data]
+
+    def fetch_gamemode(self, uuid: str, /) -> GameMode:
+        """Fetches a valorant game mode.
+
+        Parameters
+        ----------
+        uuid: :class:`str`
+            The UUID of the game mode to search for.
+
+        Returns
+        ----------
+        :class:`valorant.GameMode`
+            A valorant game mode.
+
+        Raises
+        ----------
+        NotFound:
+            If the UUID provided does not match a game mode.
+        """
+
+        data = self._http_client.request(
+            Route(f"/gamemodes/{uuid}")
+        )
+
+        return GameMode(data)
+
+    def fetch_gamemode_equippables(self) -> list[GameModeEquippable]:
+        """Fetches all valorant game mode equippables.
+
+        Returns
+        ----------
+        List[:class:`valorant.GameModeEquippable`]
+            A valorant game mode equippable.
+        """
+
+        data = self._http_client.request(
+            Route("/gamemodes/equippables/")
+        )
+
+        return [GameModeEquippable(equip) for equip in data]
+
+    def fetch_gamemode_equippable(self, uuid: str, /) -> GameModeEquippable:
+        """Fetches a valorant game mode equippable.
+
+        Parameters
+        ----------
+        uuid: :class:`str`
+            The UUID of the game mode equippable to search for.
+
+        Returns
+        ----------
+        :class:`valorant.GameModeEquippable`
+            A valorant game mode equippable.
+
+        Raises
+        ----------
+        NotFound:
+            If the UUID provided does not match a game mode equippable.
+        """
+
+        data = self._http_client.request(
+                Route(f"/gamemodes/equippables/{uuid}")
+            )
+
+        return GameModeEquippable(data)
