@@ -9,6 +9,7 @@ from .contracts import Contract
 from .currencies import Currency
 from .competitive_tiers import Episode
 from .events import Event
+from .gears import Gear
 from .http_client import HTTPClient, Route
 from .gamemodes import GameMode, GameModeEquippable
 from .langs import Language
@@ -507,3 +508,43 @@ class ValClient:
             )
 
         return GameModeEquippable(data)
+
+    def fetch_gears(self) -> list[Gear]:
+        """Fetches all valorant gears.
+
+        Returns
+        ----------
+        List[:class:`valorant.Gear`]
+            A valorant gear.
+        """
+
+        data = self._http_client.request(
+            Route("/gear")
+        )
+
+        return [Gear(equip) for equip in data]
+
+    def fetch_gear(self, uuid: str, /) -> Gear:
+        """Fetches a valorant gear.
+
+        Parameters
+        ----------
+        uuid: :class:`str`
+            The UUID of the gear to search for.
+
+        Returns
+        ----------
+        :class:`valorant.Gear`
+            A valorant gear.
+
+        Raises
+        ----------
+        NotFound:
+            If the UUID provided does not match a gear.
+        """
+
+        data = self._http_client.request(
+                Route(f"/gear/{uuid}")
+            )
+
+        return Gear(data)
